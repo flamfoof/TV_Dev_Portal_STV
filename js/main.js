@@ -24,7 +24,7 @@ async function Start()
 {
     //rootLink.txt contains the address to the s3 bucket
     root = await getPath ("rootLink.txt");
-    // paths = await getPath (root + "/paths.txt");
+    
     //can get the local paths through pastebin or any online text editor
     paths = await getPath("https://pastebin.com/raw/GDscMkqv");
     paths = paths.split("\n");
@@ -53,6 +53,7 @@ async function Start()
 
     console.log(pathList);
     
+    //Change DOM elements to TV's DOM setup
     StartInit();
 }
 
