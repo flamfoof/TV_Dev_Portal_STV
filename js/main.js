@@ -8,8 +8,6 @@ var currentPlatform = "";
    
 var root = ""
 var deviceAgent = navigator.userAgent.toLowerCase();
-var webOS = deviceAgent.match(/(webos)/);
-var tizen = deviceAgent.match(/(tizen)/);
 var paths;
 
 if(deviceAgent.match(/(webos)/))
@@ -20,23 +18,42 @@ if(deviceAgent.match(/(webos)/))
     currentPlatform = platforms[1];
 }
     
-
-var unregister = function() {
-    if ( backEventListener !== null ) {
-        document.removeEventListener( 'tizenhwkey', backEventListener );
-        backEventListener = null;
-        window.tizen.application.getCurrentApplication().exit();
-    }
-}
+setTimeout(Start, 50);
 
 async function Start()
 {
-    root = await getPath (String(Document.dir).replace("undefined", "") + "rootLink.txt");
-    paths = await getPath (new URL(document.URL).toString().replace("index.html", "") + "/paths.txt");
+    //rootLink.txt contains the address to the s3 bucket
+    root = await getPath ("rootLink.txt");
+    // paths = await getPath (root + "/paths.txt");
+    //can get the local paths through pastebin or any online text editor
+    paths = await getPath("https://pastebin.com/raw/GDscMkqv");
+    paths = paths.split("\n");
 
+    var pathList = document.getElementById("path-list");
+
+    console.log(pathList)
+    console.log(paths)
+
+    for(var i = 0; i < paths.length; i++)
+    {
+        var newNode = document.createElement("li");
+        newNode.id = "li" + i;
+
+        var linkNode = document.createElement("a");
+        linkNode.id = "id" + i;
+        linkNode.href = root + "path/" + "build_" + currentPlatform + "/" + paths[i] + "/index.html";
+        // linkNode.href = "index.html";
+        linkNode.innerHTML = paths[i]
+        linkNode.style = "box-shadow:0 0;"
+
+        newNode.appendChild(linkNode);
+
+        pathList.appendChild(newNode);
+    }
+
+    console.log(pathList);
     
-
-
+    StartInit();
 }
 
 
@@ -52,8 +69,37 @@ async function getPath(path) {
     return ret;
 }
 
+function StartInit()
+{
+    var header = document.head;
+    var jsquery1 = document.createElement("script");
+    jsquery1.type = "text/javascript";
+    jsquery1.src = "./js/jquery-1.9.1.js";
+    var jsquery2 = document.createElement("script");
+    jsquery2.type = "text/javascript";
+    jsquery2.src = "./js/jquery.mobile-1.3.2.js";
+    
+    header.appendChild(jsquery1)
+    header.appendChild(jsquery2)
+    setTimeout(StartInit1, 100)
+}
 
-  
+function StartInit1()
+{
+    $(document).bind( 'pageinit', init );
+    setTimeout(StartInit2, 100);
+}
+
+function StartInit2()
+{
+    var header = document.head;
+    var tvop = document.createElement("script");
+    tvop.type = "text/javascript";
+    tvop.src = "./js/TVOperation.js";
+    header.appendChild(tvop);
+}
+
+
 //Initialize function
 var init = function () {
     // register once
@@ -64,7 +110,6 @@ var init = function () {
     // TODO:: Do your initialization job
     console.log("init() called");
 
-    Start()
     
     var backEvent = function(e) {
         if ( e.keyName == "back" ) {
@@ -88,7 +133,13 @@ var init = function () {
     document.addEventListener( 'tizenhwkey', backEvent );
     backEventListener = backEvent;
 	document.addEventListener( 'keydown', setFocusElement );
+    $(document).unload( unregister );
 };
 
-$(document).bind( 'pageinit', init );
-$(document).unload( unregister );
+var unregister = function() {
+    if ( backEventListener !== null ) {
+        document.removeEventListener( 'tizenhwkey', backEventListener );
+        backEventListener = null;
+        window.tizen.application.getCurrentApplication().exit();
+    }
+}

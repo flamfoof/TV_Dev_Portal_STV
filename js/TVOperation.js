@@ -3,12 +3,104 @@ var mainfocus = 0;
 var item_count = 0;
 var button_count = 3;
 
-function setFocusElement(e) {
+var platforms = [
+    "webos",
+    "tizen"
+]
+
+var currentPlatform = "";
+   
+var root = ""
+var deviceAgent = navigator.userAgent.toLowerCase();
+var paths;
+
+if(deviceAgent.match(/(webos)/))
+{
+    currentPlatform = platforms[0];
+} else if (deviceAgent.match(/(tizen)/))
+{
+    currentPlatform = platforms[1];
+}
+
+async function setFocusElement(e) {
 	console.log("setFocusElement : keyCode : " + e.keyCode);
 	console.log("mainfocus = " + mainfocus);
 	switch (e.keyCode) {
 		case TvKeyCode.KEY_ENTER:
-			window.location.href = $("#id"+mainfocus).attr("href");
+            console.log("what");
+			// window.location.href = $("#id"+mainfocus).attr("href");
+            var link = document.implementation.createHTMLDocument("SelectTV").documentElement;
+            var linkRoot = $("#id"+mainfocus).attr("href").replace("index.html", "");
+            var innerHTMLNodes = await getPath($("#id"+mainfocus).attr("href"));
+            innerHTMLNodes = innerHTMLNodes.replace('<script defer="defer" src="./static/js/main.2fc20282.js"></script>', '<script type="text/javascript" src="./static/js/main.2fc20282.js"></script>')
+            var targetLink = "";
+
+            //due to innerHTMLNodes not having a replaceAll() function, this will do...........
+            for(var i = 0; i < 10; i++)
+            {
+                innerHTMLNodes = innerHTMLNodes.replace("./static", linkRoot + "static");
+            }
+            
+            switch(currentPlatform)
+            {
+                case "webos":
+                    break;
+                case "tizen":
+                    // try{
+                        var localRoot = tizen.filesystem.toURI("wgt-private-tmp");
+
+                        // function errorCallback(error)
+                        // {
+                        //   console.log("An error occurred, during directory listing: " + error.message);
+                        // }
+                        
+                        // function successCallback(files, path)
+                        // {
+                        //     console.log("wtf")
+                        //   console.log("Found directories in " + path + " directory:");
+                        //   for (var i = 0; i < files.length; i++)
+                        //   {
+                        //     console.log(files[i]);
+                        //   }
+                        // }
+                        // tizen.filesystem.listDirectory(localRoot, successCallback, errorCallback);
+                        
+                        console.log(localRoot + "/dummy.html");
+                        
+                        var fileHandleWrite = tizen.filesystem.openFile(localRoot + "/dummy.html", 'r');
+                        // tizen.filesystem.deleteFile(localRoot+ "/dummy.html")
+                        console.log('File opened for writing');
+                        
+
+                        var stringToWrite = 'example string';
+                        fileHandleWrite.writeString(innerHTMLNodes);
+                        
+                        console.log(fileHandleWrite.readString())
+                        targetLink = localRoot + "/dummy.html"
+
+
+                    // } catch(e)
+                    // {
+                    //     console.log("Tried to read file from tizen: " + e)
+                    // }
+                    break;
+                default:
+                    console.log("Nothing??")
+                    break;
+            }
+            
+            console.log($("#id"+mainfocus).attr("href"));
+            console.log(innerHTMLNodes);
+            link.innerHTML = innerHTMLNodes;
+            console.log(link.querySelector("body"));
+            // document.querySelector("body").innerHTML = link.querySelector("body").innerHTML;
+            // document.documentElement.removeChild(document.head);
+            // document.documentElement.removeChild(document.body);
+            // document.documentElement.appendChild(link.querySelector("head"))
+            // document.documentElement.appendChild(link.querySelector("body"))
+            // window.location.href = $("#id"+mainfocus).attr("href");
+            // console.log($("#id"+mainfocus).attr("href"))
+            setTimeout(launch, 2500, targetLink);
             break;
         case TvKeyCode.KEY_UP:
 			if(mainfocus < item_count + 1 && mainfocus > 0){
@@ -72,3 +164,27 @@ $(document).ready(function(){
 //ui-btn-active km_focusable
 
 
+async function getPath(path) {
+    var directory = path;
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('GET', directory, false); // false for synchronous request
+    xmlHttp.send();
+    var ret = xmlHttp.responseText;
+
+    return ret;
+}
+
+async function writePath(path) {
+    var directory = path;
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('GET', directory, false); // false for synchronous request
+    xmlHttp.send();
+    var ret = xmlHttp.responseText;
+
+    return ret;
+}
+
+function launch(targetLink)
+{
+    window.location.href = targetLink;
+}

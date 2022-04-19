@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://tvapps-hd.freecast.com/" version="1.0.0" viewmodes="maximized">
-    <tizen:application id="BRRoyItXXt.SelectTVportal" package="BRRoyItXXt" required_version="2.3"/>
+    <tizen:application id="BRRoyItXXt.SelectTVportal" package="BRRoyItXXt" required_version="4.0"/>
     <content src="index.html"/>
     <feature name="http://tizen.org/feature/screen.size.normal.1080.1920"/>
     <icon src="icon.png"/>
@@ -20,6 +20,8 @@
 	<tizen:privilege name="http://tizen.org/privilege/application.launch" />
 	<!-- <tizen:privilege name="http://tizen.org/privilege/appmanager.kill"/> -->
 	<tizen:privilege name="http://tizen.org/privilege/package.info" />
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
 	<!--<tizen:privilege name="http://tizen.org/privilege/packagemanager.install"/> -->
 	<tizen:content-security-policy>*</tizen:content-security-policy>
 	<tizen:profile name="tv" />
