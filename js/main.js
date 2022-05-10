@@ -82,7 +82,7 @@ function StartInit()
     
     header.appendChild(jsquery1)
     header.appendChild(jsquery2)
-    setTimeout(StartInit1, 100)
+    setTimeout(StartInit1, 50)
 }
 
 function StartInit1()
