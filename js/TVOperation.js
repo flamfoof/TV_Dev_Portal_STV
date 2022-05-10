@@ -32,7 +32,7 @@ async function setFocusElement(e) {
             var innerHTMLNodes = await getPath($("#id"+mainfocus).attr("href"));
             // innerHTMLNodes = innerHTMLNodes.replace('<script defer="defer" src="./static/js/main.2fc20282.js"></script>', '<script type="text/javascript" src="./static/js/main.2fc20282.js"></script>')
             
-            var targetLink = "";
+            var targetLink = "https://tvapps-hd.s3.amazonaws.com/path/build_tizen/SMTV-500/index.html";
 
             //due to innerHTMLNodes not having a replaceAll() function, this will do...........
             for(var i = 0; i < 10; i++)
@@ -92,11 +92,13 @@ async function setFocusElement(e) {
 
 
             console.log($("#id"+mainfocus).attr("href"));
+            targetLink = $("#id"+mainfocus).attr("href");
             console.log(innerHTMLNodes);
+            
 
             //Set the link element to the retrieved index.html's dom
             link = document.implementation.createHTMLDocument("SelectTV").documentElement;
-            link.innerHTML = innerHTMLNodes;
+            // link.innerHTML = innerHTMLNodes;
             
             //Checking if the data is correct
             console.log(link.querySelector("body"));
@@ -109,8 +111,8 @@ async function setFocusElement(e) {
             document.documentElement.appendChild(link.querySelector("body"))
             
             // window.location.href = $("#id"+mainfocus).attr("href");
-            // console.log($("#id"+mainfocus).attr("href"))
-            // setTimeout(launch, 2500, targetLink);
+            console.log($("#id"+mainfocus).attr("href"))
+            setTimeout(launch, 1500, targetLink);
             break;
         case TvKeyCode.KEY_UP:
 			if(mainfocus < item_count + 1 && mainfocus > 0){
