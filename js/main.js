@@ -11,6 +11,8 @@ var deviceAgent = navigator.userAgent.toLowerCase();
 var paths;
 var header;
 
+currentPlatform = platforms[0];
+
 if(deviceAgent.match(/(webos)/))
 {
     currentPlatform = platforms[0];
@@ -87,7 +89,7 @@ function StartInit()
     header.appendChild(jsquery1)
     header.appendChild(jsquery2)
     
-    setTimeout(StartInit1, 150)
+    setTimeout(StartInit1, 550)
 }
 
 function StartInit1()
