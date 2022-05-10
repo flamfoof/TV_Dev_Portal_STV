@@ -22,12 +22,6 @@ if(deviceAgent.match(/(webos)/))
     currentPlatform = platforms[1];
 }
 
-setTimeout(function(){console.log("page load complete!!!");
-item_count = $("ul[data-role='listview']").find("a").length;
-console.log("li count = " + item_count);
-showItem(0);
-$(".ui-controlgroup-controls").attr("style", "width:50%");}, 500);
-
 async function setFocusElement(e) {
 	console.log("setFocusElement : keyCode : " + e.keyCode);
 	console.log("mainfocus = " + mainfocus);
@@ -171,6 +165,14 @@ function hideItem(index) {
 	}
 }
 
+$(document).ready(function(){
+        console.log("page load complete!!!");
+        item_count = $("ul[data-role='listview']").find("a").length;
+        console.log("li count = " + item_count);
+        showItem(0);
+        $(".ui-controlgroup-controls").attr("style", "width:50%");
+         
+});
 
 //ui-btn-active km_focusable
 

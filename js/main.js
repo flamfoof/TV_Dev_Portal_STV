@@ -20,8 +20,7 @@ if(deviceAgent.match(/(webos)/))
 }
 
 
-//Change DOM elements to TV's DOM setup
-StartInit();
+
 
 setTimeout(Start, 50);
 
@@ -31,7 +30,8 @@ async function Start()
     root = await getPath ("rootLink.txt");
     
     //can get the local paths through pastebin or any online text editor
-    paths = await getPath("https://pastebin.com/raw/GDscMkqv");
+    paths = await getPath("pathLocation.txt");
+    paths = await getPath(paths.toString());
     paths = paths.split("\n");
 
     var pathList = document.getElementById("path-list");
@@ -57,7 +57,8 @@ async function Start()
     }
 
     console.log(pathList);
-    
+    //Change DOM elements to TV's DOM setup
+    StartInit();
 }
 
 
@@ -82,16 +83,19 @@ function StartInit()
     var jsquery2 = document.createElement("script");
     jsquery2.type = "text/javascript";
     jsquery2.src = "./js/jquery.mobile-1.3.2.js";
-    var tvop = document.createElement("script");
-    tvop.type = "text/javascript";
-    tvop.src = "./js/TVOperation.js"
+    
     header.appendChild(jsquery1)
     header.appendChild(jsquery2)
+    
     setTimeout(StartInit1, 150)
 }
 
 function StartInit1()
 {
+    // var tvop = document.createElement("script");
+    // tvop.type = "text/javascript";
+    // tvop.src = "./js/TVOperation.js"
+    // header.appendChild(tvop)
     $(document).bind( 'pageinit', init );
     setTimeout(StartInit2, 100);
 }
@@ -102,7 +106,7 @@ function StartInit2()
     var tvop = document.createElement("script");
     tvop.type = "text/javascript";
     tvop.src = "./js/TVOperation.js";
-    // header.appendChild(tvop);
+    header.appendChild(tvop);
 }
 
 
@@ -138,8 +142,9 @@ var init = function () {
     // add eventListener for tizenhwkey (Back Button)
     document.addEventListener( 'tizenhwkey', backEvent );
     backEventListener = backEvent;
-	document.addEventListener( 'keydown', setFocusElement );
-    $(document).unload( unregister );
+    setTimeout(function(){document.addEventListener( 'keydown', setFocusElement );$(document).unload( unregister );}, 800);
+	
+    
 };
 
 var unregister = function() {
