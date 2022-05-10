@@ -11,7 +11,7 @@
 
 
 (function ( root, doc, factory ) {
-	if ( typeof define === "function" && define.amd ) {
+    setTimeout(function(){if ( typeof define === "function" && define.amd ) {
 		// AMD. Register as an anonymous module.
 		define( [ "jquery" ], function ( $ ) {
 			factory( $, root, doc );
@@ -20,7 +20,8 @@
 	} else {
 		// Browser globals
 		factory( root.jQuery, root, doc );
-	}
+	}}, 10)
+	
 }( this, document, function ( jQuery, window, document, undefined ) {
 (function( $ ) {
 	$.mobile = {};

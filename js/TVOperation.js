@@ -22,6 +22,12 @@ if(deviceAgent.match(/(webos)/))
     currentPlatform = platforms[1];
 }
 
+setTimeout(function(){console.log("page load complete!!!");
+item_count = $("ul[data-role='listview']").find("a").length;
+console.log("li count = " + item_count);
+showItem(0);
+$(".ui-controlgroup-controls").attr("style", "width:50%");}, 500);
+
 async function setFocusElement(e) {
 	console.log("setFocusElement : keyCode : " + e.keyCode);
 	console.log("mainfocus = " + mainfocus);
@@ -32,7 +38,7 @@ async function setFocusElement(e) {
             var innerHTMLNodes = await getPath($("#id"+mainfocus).attr("href"));
             // innerHTMLNodes = innerHTMLNodes.replace('<script defer="defer" src="./static/js/main.2fc20282.js"></script>', '<script type="text/javascript" src="./static/js/main.2fc20282.js"></script>')
             
-            var targetLink = "https://tvapps-hd.s3.amazonaws.com/path/build_tizen/SMTV-500/index.html";
+            var targetLink = "";
 
             //due to innerHTMLNodes not having a replaceAll() function, this will do...........
             for(var i = 0; i < 10; i++)
@@ -165,13 +171,6 @@ function hideItem(index) {
 	}
 }
 
-$(document).ready(function(){
-     console.log("page load complete!!!");
-	 item_count = $("ul[data-role='listview']").find("a").length;
-	 console.log("li count = " + item_count);
-	 showItem(0);
-	 $(".ui-controlgroup-controls").attr("style", "width:50%");
-});
 
 //ui-btn-active km_focusable
 

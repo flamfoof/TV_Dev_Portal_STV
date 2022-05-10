@@ -9,6 +9,7 @@ var currentPlatform = "";
 var root = ""
 var deviceAgent = navigator.userAgent.toLowerCase();
 var paths;
+var header;
 
 if(deviceAgent.match(/(webos)/))
 {
@@ -17,7 +18,11 @@ if(deviceAgent.match(/(webos)/))
 {
     currentPlatform = platforms[1];
 }
-    
+
+
+//Change DOM elements to TV's DOM setup
+StartInit();
+
 setTimeout(Start, 50);
 
 async function Start()
@@ -53,8 +58,6 @@ async function Start()
 
     console.log(pathList);
     
-    //Change DOM elements to TV's DOM setup
-    StartInit();
 }
 
 
@@ -72,17 +75,19 @@ async function getPath(path) {
 
 function StartInit()
 {
-    var header = document.head;
+    header = document.head;
     var jsquery1 = document.createElement("script");
     jsquery1.type = "text/javascript";
     jsquery1.src = "./js/jquery-1.9.1.js";
     var jsquery2 = document.createElement("script");
     jsquery2.type = "text/javascript";
     jsquery2.src = "./js/jquery.mobile-1.3.2.js";
-    
+    var tvop = document.createElement("script");
+    tvop.type = "text/javascript";
+    tvop.src = "./js/TVOperation.js"
     header.appendChild(jsquery1)
     header.appendChild(jsquery2)
-    setTimeout(StartInit1, 50)
+    setTimeout(StartInit1, 150)
 }
 
 function StartInit1()
@@ -97,7 +102,7 @@ function StartInit2()
     var tvop = document.createElement("script");
     tvop.type = "text/javascript";
     tvop.src = "./js/TVOperation.js";
-    header.appendChild(tvop);
+    // header.appendChild(tvop);
 }
 
 
