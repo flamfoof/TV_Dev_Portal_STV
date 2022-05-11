@@ -24,7 +24,7 @@ if(deviceAgent.match(/(webos)/))
 
 
 
-setTimeout(Start, 50);
+setTimeout(Start, 550);
 
 async function Start()
 {
@@ -78,6 +78,7 @@ async function getPath(path) {
 
 function StartInit()
 {
+    console.log("Start Init");
     header = document.head;
     var jsquery1 = document.createElement("script");
     jsquery1.type = "text/javascript";
@@ -89,7 +90,7 @@ function StartInit()
     header.appendChild(jsquery1)
     header.appendChild(jsquery2)
     
-    setTimeout(StartInit1, 550)
+    setTimeout(StartInit1, 50)
 }
 
 function StartInit1()
@@ -99,7 +100,7 @@ function StartInit1()
     // tvop.src = "./js/TVOperation.js"
     // header.appendChild(tvop)
     $(document).bind( 'pageinit', init );
-    setTimeout(StartInit2, 100);
+    setTimeout(StartInit2, 500);
 }
 
 function StartInit2()
