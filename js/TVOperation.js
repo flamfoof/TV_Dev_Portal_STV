@@ -27,8 +27,8 @@ if(deviceAgent.match(/(webos)/))
 TVOpsInit();
 
 async function setFocusElement(e) {
-	console.log("setFocusElement : keyCode : " + e.keyCode);
-	console.log("mainfocus = " + mainfocus);
+	// console.log("setFocusElement : keyCode : " + e.keyCode);
+	// console.log("mainfocus = " + mainfocus);
 	switch (e.keyCode) {
 		case TvKeyCode.KEY_ENTER:
             var link;
@@ -93,8 +93,8 @@ async function setFocusElement(e) {
 }
 
 function showItem(index) {
-    console.log("Index selected: " + index);   
-    console.log("index selected: " + JSON.stringify($("#id"+mainfocus).attr("href"))) 
+    // console.log("Index selected: " + index);   
+    // console.log("index selected: " + JSON.stringify($("#id"+mainfocus).attr("href"))) 
 	$("#id" + index).addClass("ui-btn-active");
 	$("#id" + index).addClass("ui-focus");
 	$("#li" + index).addClass("ui-focus");
@@ -158,6 +158,34 @@ function DeleteCache()
         console.log("Cleared webos content")
     } else if(currentPlatform == "tizen")
     {
-        console.log("Cleared tizen content")
+        var fileTarget = 'wgt-private/'
+        deleteDirectory(fileTarget);
+    }
+
+    Refresh();
+}
+
+//Tizen delete
+function deleteDirectory(from, to)  
+{
+    function errorCallback(error)
+    {
+      console.log("An error occurred, during Delete directory operation: " + error.message);
+    }
+    
+    function successCallback(path)
+    {
+      console.log("The directory has been deleted: " + path);
+      /* Directory copy can now be accessed. */
+    }
+    
+    try
+    {
+      tizen.filesystem.deleteDirectory(
+          from, true, successCallback, errorCallback);
+    }
+    catch (error)
+    {
+      console.log("Delete operation cannot be performed: " + error.message);
     }
 }

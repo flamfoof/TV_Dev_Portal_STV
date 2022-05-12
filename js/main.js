@@ -85,6 +85,7 @@ async function StartInit()
     jsquery2.src = "./js/jquery.mobile-1.3.2.js";
     
     header.appendChild(jsquery1)
+    await sleep(200);
     header.appendChild(jsquery2)
 }
 
