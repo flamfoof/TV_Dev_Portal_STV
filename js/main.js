@@ -41,31 +41,15 @@ async function Start()
     console.log(pathList)
     console.log(paths)
 
-    for(var i = 0; i < paths.length; i++)
-    {
-        var newNode = document.createElement("li");
-        newNode.id = "li" + i;
+    //Setting Refresh and Delete cache to the end of the IDs
+    document.getElementById("id99").id = "id" + (paths.length);
+    document.getElementById("id100").id = "id" + (paths.length + 1);
 
-        var linkNode = document.createElement("a");
-        linkNode.id = "id" + i;
-        linkNode.href = root + "path/" + "build_" + currentPlatform + "/" + paths[i] + "/index.html";
-        // linkNode.href = "index.html";
-        linkNode.innerHTML = paths[i]
-        linkNode.style = "box-shadow:0 0;"
+    //Creating the elements for the paths 
+    CreatePathsListItems(paths, pathList);
 
-        if(i == 0)
-        {
-            linkNode.classList.add("ui-btn-active");
-            linkNode.classList.add("ui-state-persist");
-        }
-
-        newNode.appendChild(linkNode);
-
-        pathList.appendChild(newNode);
-    }
-
-    console.log(pathList);
     //Change DOM elements to TV's DOM setup
+    await sleep(100);
     console.log("Starting the jquery")
     await StartInit();
 
@@ -102,20 +86,13 @@ async function StartInit()
     
     header.appendChild(jsquery1)
     header.appendChild(jsquery2)
-    
-    
 }
 
 async function StartInit1()
 {
-    // var tvop = document.createElement("script");
-    // tvop.type = "text/javascript";
-    // tvop.src = "./js/TVOperation.js"
-    // header.appendChild(tvop)
-    await sleep(200);
-    // $(document).bind( 'pageinit', init );
+    //Wait for jquery to load
+    await sleep(1000);
     init();
-    // setTimeout(StartInit2, 1200);
 }
 
 async function StartInit2()
@@ -125,7 +102,6 @@ async function StartInit2()
     tvop.type = "text/javascript";
     tvop.src = "./js/TVOperation.js";
     header.appendChild(tvop);
-    
 }
 
 
@@ -162,11 +138,34 @@ var init = function () {
     document.addEventListener( 'tizenhwkey', backEvent );
     backEventListener = backEvent;
     
-    
     $(document).unload( unregister );
-	
-    
 };
+
+function CreatePathsListItems(paths, pathsList)
+{
+
+    for(var i = 0; i < paths.length; i++)
+    {
+        var newNode = document.createElement("li");
+        newNode.id = "li" + i;
+
+        var linkNode = document.createElement("a");
+        linkNode.id = "id" + i;
+        linkNode.href = root + "path/" + "build_" + currentPlatform + "/" + paths[i] + "/index.html";
+        linkNode.innerHTML = paths[i]
+        linkNode.style = "box-shadow:0 0;"
+
+        if(i == 0)
+        {
+            linkNode.classList.add("ui-btn-active");
+            linkNode.classList.add("ui-state-persist");
+        }
+
+        newNode.appendChild(linkNode);
+
+        pathsList.appendChild(newNode);
+    }
+}
 
 var unregister = function() {
     if ( backEventListener !== null ) {
