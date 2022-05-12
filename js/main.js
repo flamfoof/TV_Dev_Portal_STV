@@ -125,8 +125,7 @@ async function StartInit2()
     tvop.type = "text/javascript";
     tvop.src = "./js/TVOperation.js";
     header.appendChild(tvop);
-    await sleep(500);
-    document.addEventListener( 'keydown', setFocusElement );
+    
 }
 
 
