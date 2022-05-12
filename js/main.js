@@ -69,13 +69,11 @@ async function Start()
     console.log("Starting the jquery")
     await StartInit();
 
-    console.log("Starting the tvops script")
-    await StartInit2();
-
     console.log("Initiate page load")
     await StartInit1();
 
-    
+    console.log("Starting the tvops script")
+    await StartInit2();
 }
 
 
@@ -114,7 +112,7 @@ async function StartInit1()
     // tvop.type = "text/javascript";
     // tvop.src = "./js/TVOperation.js"
     // header.appendChild(tvop)
-    await sleep(500);
+    await sleep(200);
     // $(document).bind( 'pageinit', init );
     init();
     // setTimeout(StartInit2, 1200);
@@ -127,6 +125,8 @@ async function StartInit2()
     tvop.type = "text/javascript";
     tvop.src = "./js/TVOperation.js";
     header.appendChild(tvop);
+    await sleep(500);
+    document.addEventListener( 'keydown', setFocusElement );
 }
 
 
@@ -162,7 +162,7 @@ var init = function () {
     // add eventListener for tizenhwkey (Back Button)
     document.addEventListener( 'tizenhwkey', backEvent );
     backEventListener = backEvent;
-    document.addEventListener( 'keydown', setFocusElement );
+    
     
     $(document).unload( unregister );
 	

@@ -175,6 +175,7 @@ function TVOpsInit()
     console.log("li count = " + item_count);
     showItem(0);
     $(".ui-controlgroup-controls").attr("style", "width:50%");
+    document.addEventListener( 'keydown', setFocusElement );
 }
          
 // });
