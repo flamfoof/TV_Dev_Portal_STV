@@ -16,9 +16,14 @@ var root = ""
 var deviceAgent = navigator.userAgent.toLowerCase();
 var paths;
 
-if(deviceAgent.match(/(webos)/))
-{
-    currentPlatform = platforms[0];
+if(window.webOS)
+{   
+    if(window.webOS.platform.tv)
+    {
+        console.log("matches")
+        
+        currentPlatform = platforms[0];
+    }
 } else if (deviceAgent.match(/(tizen)/))
 {
     currentPlatform = platforms[1];
@@ -150,42 +155,54 @@ function Refresh()
     window.location.href = "index.html";
 }
 
-function DeleteCache()
+async function DeleteCache()
 {
     console.log("Deleted them all");
-    if(currentPlatform == "webos")
+    var allLinks = document.links
+    var linksList = [];
+    var iframeList = [];
+    var iframeHolder = document.getElementById("iframeHolder");
+
+    for(var i = 0; i < allLinks.length; i++)
     {
-        console.log("Cleared webos content")
-    } else if(currentPlatform == "tizen")
-    {
-        var fileTarget = 'wgt-private/'
-        deleteDirectory(fileTarget);
+        if(allLinks[i].href.startsWith("https://"))
+            linksList.push(allLinks[i].href);
     }
+
+    for(var i = 0; i < linksList.length; i++)
+    {
+        var iframe = document.createElement('iframe');
+        iframe.src = linksList[i];
+        iframe.id = linksList[i];
+        iframeList.push(iframe);
+        iframeHolder.appendChild(iframe);
+    }
+
+    await NukemDead();
+
+    console.log("Done nuking");
+
 
     Refresh();
+
+    async function NukemDead()
+    {
+        console.log(iframeList[0])
+        for(var i = 0; i < iframeList.length; i++)
+        {
+            var iframe = iframeList[i];
+            await sleep(50);
+            iframe.contentWindow.localStorage.clear();
+            await sleep(50);
+            iframe.remove();
+            console.log("cleared out iframe " + i + ": " + linksList[i])
+        }
+
+        iframeList = null;
+        await sleep(100);
+    }
 }
 
-//Tizen delete
-function deleteDirectory(from, to)  
-{
-    function errorCallback(error)
-    {
-      console.log("An error occurred, during Delete directory operation: " + error.message);
-    }
-    
-    function successCallback(path)
-    {
-      console.log("The directory has been deleted: " + path);
-      /* Directory copy can now be accessed. */
-    }
-    
-    try
-    {
-      tizen.filesystem.deleteDirectory(
-          from, true, successCallback, errorCallback);
-    }
-    catch (error)
-    {
-      console.log("Delete operation cannot be performed: " + error.message);
-    }
+async function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
