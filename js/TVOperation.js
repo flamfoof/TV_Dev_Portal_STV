@@ -197,7 +197,11 @@ async function DeleteCache()
             iframe.remove();
             console.log("cleared out iframe " + i + ": " + linksList[i])
         }
-
+        await sleep (100);
+        //delete the local portal cache
+        localStorage.clear();
+        sessionStorage.clear();
+        console.log("Nuke the internal storage too")
         iframeList = null;
         await sleep(100);
     }
