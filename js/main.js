@@ -53,6 +53,12 @@ async function Start()
         linkNode.innerHTML = paths[i]
         linkNode.style = "box-shadow:0 0;"
 
+        if(i == 0)
+        {
+            linkNode.classList.add("ui-btn-active");
+            linkNode.classList.add("ui-state-persist");
+        }
+
         newNode.appendChild(linkNode);
 
         pathList.appendChild(newNode);
@@ -60,7 +66,16 @@ async function Start()
 
     console.log(pathList);
     //Change DOM elements to TV's DOM setup
-    StartInit();
+    console.log("Starting the jquery")
+    await StartInit();
+
+    console.log("Starting the tvops script")
+    await StartInit2();
+
+    console.log("Initiate page load")
+    await StartInit1();
+
+    
 }
 
 
@@ -76,7 +91,7 @@ async function getPath(path) {
     return ret;
 }
 
-function StartInit()
+async function StartInit()
 {
     console.log("Start Init");
     header = document.head;
@@ -90,20 +105,22 @@ function StartInit()
     header.appendChild(jsquery1)
     header.appendChild(jsquery2)
     
-    setTimeout(StartInit1, 50)
+    
 }
 
-function StartInit1()
+async function StartInit1()
 {
     // var tvop = document.createElement("script");
     // tvop.type = "text/javascript";
     // tvop.src = "./js/TVOperation.js"
     // header.appendChild(tvop)
-    $(document).bind( 'pageinit', init );
-    setTimeout(StartInit2, 500);
+    await sleep(500);
+    // $(document).bind( 'pageinit', init );
+    init();
+    // setTimeout(StartInit2, 1200);
 }
 
-function StartInit2()
+async function StartInit2()
 {
     var header = document.head;
     var tvop = document.createElement("script");
@@ -145,7 +162,9 @@ var init = function () {
     // add eventListener for tizenhwkey (Back Button)
     document.addEventListener( 'tizenhwkey', backEvent );
     backEventListener = backEvent;
-    setTimeout(function(){document.addEventListener( 'keydown', setFocusElement );$(document).unload( unregister );}, 800);
+    document.addEventListener( 'keydown', setFocusElement );
+    
+    $(document).unload( unregister );
 	
     
 };
@@ -156,4 +175,8 @@ var unregister = function() {
         backEventListener = null;
         window.tizen.application.getCurrentApplication().exit();
     }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
