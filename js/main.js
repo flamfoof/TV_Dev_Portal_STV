@@ -11,15 +11,15 @@ var deviceAgent = navigator.userAgent.toLowerCase();
 var paths;
 var header;
 
-currentPlatform = platforms[0];
+currentPlatform = "react";
 
-if(deviceAgent.match(/(webos)/))
-{
-    currentPlatform = platforms[0];
-} else if (deviceAgent.match(/(tizen)/))
-{
-    currentPlatform = platforms[1];
-}
+// if(deviceAgent.match(/(webos)/))
+// {
+//     currentPlatform = platforms[0];
+// } else if (deviceAgent.match(/(tizen)/))
+// {
+//     currentPlatform = platforms[1];
+// }
 
 
 

@@ -10,24 +10,24 @@ var platforms = [
 ]
 
 //by default it is webos
-var currentPlatform = "webos";
+var currentPlatform = "react";
    
 var root = ""
 var deviceAgent = navigator.userAgent.toLowerCase();
 var paths;
 
-if(window.webOS)
-{   
-    if(window.webOS.platform.tv)
-    {
-        console.log("matches")
+// if(window.webOS)
+// {   
+//     if(window.webOS.platform.tv)
+//     {
+//         console.log("matches")
         
-        currentPlatform = platforms[0];
-    }
-} else if (deviceAgent.match(/(tizen)/))
-{
-    currentPlatform = platforms[1];
-}
+//         currentPlatform = platforms[0];
+//     }
+// } else if (deviceAgent.match(/(tizen)/))
+// {
+//     currentPlatform = platforms[1];
+// }
 
 TVOpsInit();
 
