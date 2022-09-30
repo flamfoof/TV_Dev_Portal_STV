@@ -15,7 +15,10 @@ var currentPlatform = "react";
 var root = ""
 var deviceAgent = navigator.userAgent.toLowerCase();
 var paths;
-
+var scrollByLength = 45;
+var topIndex = 1;
+var botIndex = 0;
+var offsetLocation = window.scrollY;
 // if(window.webOS)
 // {   
 //     if(window.webOS.platform.tv)
@@ -34,6 +37,7 @@ TVOpsInit();
 async function setFocusElement(e) {
 	// console.log("setFocusElement : keyCode : " + e.keyCode);
 	// console.log("mainfocus = " + mainfocus);
+
 	switch (e.keyCode) {
 		case TvKeyCode.KEY_ENTER:
             var link;
@@ -100,9 +104,31 @@ async function setFocusElement(e) {
 function showItem(index) {
     // console.log("Index selected: " + index);   
     // console.log("index selected: " + JSON.stringify($("#id"+mainfocus).attr("href"))) 
+    var offsetChanged = false;
 	$("#id" + index).addClass("ui-btn-active");
 	$("#id" + index).addClass("ui-focus");
 	$("#li" + index).addClass("ui-focus");
+    
+    botIndex = index;
+
+    if(topIndex > botIndex)
+    {
+        topIndex = botIndex;
+    }
+
+    if(botIndex - topIndex > 12)
+    {
+        window.scrollBy(0, scrollByLength);
+        if(offsetLocation != window.scrollY)
+        {
+            offsetLocation = window.scrollY;
+            offsetChanged = true;
+        }
+        if(offsetChanged)
+            topIndex++;
+    } else if (botIndex - topIndex <= 0){
+        window.scrollBy(0, -scrollByLength);
+    }
 }
 
 function hideItem(index) {

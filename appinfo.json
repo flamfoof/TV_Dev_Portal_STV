@@ -1,0 +1,17 @@
+{
+    "icon": "icon.png",
+    "id": "com.freecast.tvportal",
+    "largeIcon": "largeIcon.png",
+    "main": "index.html",
+    "title": "SelecTV",
+    "type": "web",
+    "vendor": "FreeCast Inc.",
+    "version": "0.0.1",
+    "appDescription": "Stream and Watch TV, Movies, and More",
+    "bgColor": "#4b08c4",
+    "disableBackHistoryAPI": true,
+    "iconColor": "#4b08c4",
+    "requiredMemory": 35,
+    "resolution": "1920x1080",
+    "allowCrossDomain": true
+}

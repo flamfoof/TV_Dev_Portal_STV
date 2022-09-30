@@ -42,8 +42,8 @@ async function Start()
     console.log(paths)
 
     //Setting Refresh and Delete cache to the end of the IDs
-    document.getElementById("id99").id = "id" + (paths.length);
-    document.getElementById("id100").id = "id" + (paths.length + 1);
+    document.getElementById("id1199").id = "id" + (paths.length);
+    document.getElementById("id1200").id = "id" + (paths.length + 1);
 
     //Creating the elements for the paths 
     CreatePathsListItems(paths, pathList);
