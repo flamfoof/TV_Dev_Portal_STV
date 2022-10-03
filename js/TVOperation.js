@@ -19,6 +19,22 @@ var scrollByLength = 45;
 var topIndex = 1;
 var botIndex = 0;
 var offsetLocation = window.scrollY;
+var famousIframe = document.createElement('iframe')
+
+document.getElementById("overlayMaster").appendChild(famousIframe)
+famousIframe.frameBorder = 0;
+famousIframe.id = "sheep";
+document.getElementById("foo").focus();
+
+
+setTimeout(function(){
+    //For testing any functions
+
+}, 500);
+
+
+
+// console.log(window.parent)
 // if(window.webOS)
 // {   
 //     if(window.webOS.platform.tv)
@@ -115,7 +131,7 @@ function showItem(index) {
     {
         topIndex = botIndex;
     }
-
+    
     if(botIndex - topIndex > 12)
     {
         window.scrollBy(0, scrollByLength);
@@ -126,7 +142,7 @@ function showItem(index) {
         }
         if(offsetChanged)
             topIndex++;
-    } else if (botIndex - topIndex <= 0){
+    } else if (botIndex - topIndex <= 3){
         window.scrollBy(0, -scrollByLength);
     }
 }
@@ -149,7 +165,6 @@ function TVOpsInit()
     $(".ui-controlgroup-controls").attr("style", "width:50%");
     document.addEventListener( 'keydown', setFocusElement );
 }
-         
 
 async function getPath(path) {
     var directory = path;
@@ -173,7 +188,24 @@ async function writePath(path) {
 
 function launch(targetLink)
 {
-    window.location.href = targetLink;
+    //old way of opening the links
+    // window.location.href = targetLink
+    famousIframe.style = "left:0; top:0; display:block; z-index:10; position:absolute;";
+    famousIframe.src = targetLink;
+    famousIframe.height = '100%';
+    famousIframe.width = '100%';
+    famousIframe.contentWindow.tizen = window.tizen;
+    famousIframe.focus();
+    
+    setTimeout(function(){
+        famousIframe.contentWindow.tizen = tizen;
+        console.log(famousIframe.contentWindow)
+
+        //exterminates the main body of the dev portal
+        document.getElementById("foo").remove();
+    }, 1500);
+
+    console.log("LOADING ASSIGNED")
 }
 
 function Refresh()
