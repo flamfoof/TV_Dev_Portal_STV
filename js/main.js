@@ -109,36 +109,36 @@ async function StartInit2()
 
 //Initialize function
 var init = function () {
-    // register once
-    if ( backEventListener !== null ) {
-        return;
-    }
+    // // register once
+    // if ( backEventListener !== null ) {
+    //     return;
+    // }
     
-    // TODO:: Do your initialization job
-    console.log("init() called");
+    // // TODO:: Do your initialization job
+    // console.log("init() called");
 
     
-    var backEvent = function(e) {
-        if ( e.keyName == "back" ) {
-            try {
-                if ( $.mobile.urlHistory.activeIndex <= 0 ) {
-                    // if first page, terminate app
-                    unregister();
-                } else {
-                    // move previous page
-                    $.mobile.urlHistory.activeIndex -= 1;
-                    $.mobile.urlHistory.clearForward();
-                    window.history.back();
-                }
-            } catch( ex ) {
-                unregister();
-            }
-        }
-    }
+    // var backEvent = function(e) {
+    //     if ( e.keyName == "back" ) {
+    //         try {
+    //             if ( $.mobile.urlHistory.activeIndex <= 0 ) {
+    //                 // if first page, terminate app
+    //                 unregister();
+    //             } else {
+    //                 // move previous page
+    //                 $.mobile.urlHistory.activeIndex -= 1;
+    //                 $.mobile.urlHistory.clearForward();
+    //                 window.history.back();
+    //             }
+    //         } catch( ex ) {
+    //             unregister();
+    //         }
+    //     }
+    // }
     
-    // add eventListener for tizenhwkey (Back Button)
-    document.addEventListener( 'tizenhwkey', backEvent );
-    backEventListener = backEvent;
+    // // add eventListener for tizenhwkey (Back Button)
+    // document.addEventListener( 'tizenhwkey', backEvent );
+    // backEventListener = backEvent;
     
     $(document).unload( unregister );
 };
