@@ -164,6 +164,19 @@ function TVOpsInit()
     showItem(0);
     $(".ui-controlgroup-controls").attr("style", "width:50%");
     document.addEventListener( 'keydown', setFocusElement );
+    
+    if(deviceAgent.includes("tizen"))
+    {   
+        currentPlatform = platforms[1];
+    } else if (window.webOS)
+    {
+        if(window.webOS.platform.tv)
+        {
+            console.log("matches")
+            
+            currentPlatform = platforms[0];
+        }
+    }
 }
 
 async function getPath(path) {
