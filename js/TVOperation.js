@@ -22,24 +22,10 @@ var offsetLocation = window.scrollY;
 var famousIframe = document.createElement('iframe')
 var tizenLibSet = false;
 
-document.getElementById("overlayMaster").appendChild(famousIframe)
+document.body.appendChild(famousIframe)
 famousIframe.frameBorder = 0;
 famousIframe.id = "sheep";
 document.getElementById("foo").focus();
-
-// console.log(window.parent)
-// if(window.webOS)
-// {   
-//     if(window.webOS.platform.tv)
-//     {
-//         console.log("matches")
-        
-//         currentPlatform = platforms[0];
-//     }
-// } else if (deviceAgent.match(/(tizen)/))
-// {
-//     currentPlatform = platforms[1];
-// }
 
 TVOpsInit();
 
@@ -181,7 +167,7 @@ async function getPath(path) {
 
     return ret;
 }
-
+/*write path to directory*/
 async function writePath(path) {
     var directory = path;
     var xmlHttp = new XMLHttpRequest();
@@ -200,38 +186,39 @@ async function launch(targetLink)
         window.location.href = targetLink
     } else {
         window.location.href = targetLink
-        // famousIframe.style = "display:block; position:absolute;";
+        // famousIframe.style = "display:block;";
         // famousIframe.src = targetLink;
-        // famousIframe.allow = "fullscreen; autoplay; navigation-override; oversized-images; picture-in-picture; sync-xhr; unoptimized-images; unsized-media; web-share; layout-animations; unoptimized-images; oversized-images; sync-script; sync-xhr; unsized-media; execution-while-not-rendered; execution-while-out-of-viewport; encrypted-media; geolocation; publickey-credentials-get; sync-script;"
-        // famousIframe.height = 1280;
-        // famousIframe.width = 1920;
-        // console.log(famousIframe.contentWindow.tizen)
+        // // console.log(famousIframe.contentWindow.tizen)
         // $(famousIframe).on('load', function() {
         //     console.log("loaded")
         //     famousIframe.contentWindow.tizen = tizen;
         //     console.log(famousIframe.contentWindow)
         //     famousIframe.focus();
 
-        //     window.tizen.tvinputdevice.getSupportedKeys().forEach((e) => {
-        //         if (e.code >= '0'.charCodeAt(0) && e.code <= '9'.charCodeAt(0)) {
-        //             window.tizen.tvinputdevice.registerKey(e.name);
-        //         }
-        //         if (
-        //         [
-        //             19,
-        //             415,
-        //             10252,
-        //         ].includes(e.code)
-        //         ) {
-        //             window.tizen.tvinputdevice.registerKey(e.name);
-        //         }
-        //     });
+        // //     window.tizen.tvinputdevice.getSupportedKeys().forEach((e) => {
+        // //         if (e.code >= '0'.charCodeAt(0) && e.code <= '9'.charCodeAt(0)) {
+        // //             window.tizen.tvinputdevice.registerKey(e.name);
+        // //         }
+        // //         if (
+        // //         [
+        // //             19,
+        // //             415,
+        // //             10252,
+        // //         ].includes(e.code)
+        // //         ) {
+        // //             window.tizen.tvinputdevice.registerKey(e.name);
+        // //         }
+        // //     });
             
         //     setTimeout(function(){
         //         //exterminates the main body of the dev portal
-        //         document.getElementById("foo").remove();
+        //         // document.getElementById("foo").remove();
+        //         document.getElementById("foo").style.display="none";
         //     }, 500)
         // })
+
+        // asyncDownloadAWSBucketFolder(targetLink.replace("index.html", ""), 'us-east-1', tizen.filesystem.getDirName("wgt-private"))
+        })
     }
     // while(!famousIframe.contentWindow.tizen)
     // {
@@ -239,7 +226,6 @@ async function launch(targetLink)
     //     await sleep (1);
     // }
     // console.log(famousIframe.contentWindow.tizen)
-        
     console.log("LOADING ASSIGNED")
 }
 
