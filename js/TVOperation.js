@@ -1,3 +1,7 @@
+// import * as AWS from 'aws-sdk';
+// import * as fs from 'fs';
+// import * as path from 'path';
+
 var last_focus_index = 0;
 var mainfocus = 0;
 var item_count = 0;
@@ -218,7 +222,7 @@ async function launch(targetLink)
         // })
 
         // asyncDownloadAWSBucketFolder(targetLink.replace("index.html", ""), 'us-east-1', tizen.filesystem.getDirName("wgt-private"))
-        })
+        // })
     }
     // while(!famousIframe.contentWindow.tizen)
     // {
@@ -289,3 +293,47 @@ async function DeleteCache()
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+// async function asyncDownloadAWSBucketFolder(location, bucket, destination) {
+//     const s3 = new AWS.S3();
+//     console.log("destination: " + destination)
+//     const params = {
+//         Bucket: bucket,
+//         Prefix: location
+//     };
+//     const objects = await s3.listObjectsV2(params).promise();
+//     const promises = objects.Contents.map(async (object) => {
+//         const params = {
+//             Bucket: bucket,
+//             Key: object.Key
+//         };
+//         const file = await s3.getObject(params).promise();
+//         const filePath = path.join(destination, object.Key);
+//         fs.writeFileSync(filePath, file.Body);
+//         return filePath;
+//     });
+//     return Promise.all(promises);
+// }
+
+// function copyFiles(from, to)
+// {
+//     function errorCallback(error)
+//     {
+//         console.log("An error occurred, during copy operation: " + error.message);
+//     }
+
+//     function successCallback(path)
+//     {
+//         console.log("The file has been copied, path to copied file: " + path);
+//         /* File copy can now be accessed. */
+//     }
+
+//     try
+//     {
+//         tizen.filesystem.copyFile(from, to, true, successCallback, errorCallback);
+//     }
+//     catch (error)
+//     {
+//         console.log("Copy operation cannot be performed: " + error.message);
+//     }
+// }

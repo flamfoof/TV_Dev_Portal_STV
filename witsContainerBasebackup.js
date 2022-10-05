@@ -197,6 +197,9 @@
     socket.on('connect_error', function (err) {
     //   alert(`Connect Error(${url}): ${err.message}`);
     //   tizen.application.getCurrentApplication().exit();
+    
+    socket.disconnect(true);
+    socket.close();
     });
 
     socket.on('response', function (chunk) {
@@ -218,7 +221,7 @@
       socket.disconnect(true);
       socket.close();
       if (isLoadingContents) {
-        alert('Failed to load Content Application');
+        // alert('Failed to load Content Application');
         tizen.application.getCurrentApplication().exit();
       }
     });
