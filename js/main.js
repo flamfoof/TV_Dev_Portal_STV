@@ -22,8 +22,6 @@ currentPlatform = "react";
 // }
 
 
-
-
 setTimeout(Start, 550);
 
 async function Start()
@@ -42,8 +40,8 @@ async function Start()
     console.log(paths)
 
     //Setting Refresh and Delete cache to the end of the IDs
-    document.getElementById("id1199").id = "id" + (paths.length);
-    document.getElementById("id1200").id = "id" + (paths.length + 1);
+    document.getElementById("id1199").id = "id" + (paths.length - 1);
+    document.getElementById("id1200").id = "id" + (paths.length);
 
     //Creating the elements for the paths 
     CreatePathsListItems(paths, pathList);
@@ -148,24 +146,29 @@ function CreatePathsListItems(paths, pathsList)
 
     for(var i = 0; i < paths.length; i++)
     {
-        var newNode = document.createElement("li");
-        newNode.id = "li" + i;
-
-        var linkNode = document.createElement("a");
-        linkNode.id = "id" + i;
-        linkNode.href = root + "path/" + "build_" + currentPlatform + "/" + paths[i] + "/index.html";
-        linkNode.innerHTML = paths[i]
-        linkNode.style = "box-shadow:0 0;"
-
-        if(i == 0)
+        var newNode
+        var linkNode;
+        if(paths[i] != "")
         {
-            linkNode.classList.add("ui-btn-active");
-            linkNode.classList.add("ui-state-persist");
+            newNode = document.createElement("li");
+            newNode.id = "li" + i;
+            
+            linkNode = document.createElement("a");
+            linkNode.id = "id" + i;
+            linkNode.href = root + "path/" + "build_" + currentPlatform + "/" + paths[i] + "/index.html";
+            linkNode.innerHTML = paths[i]
+            linkNode.style = "box-shadow:0 0;"
+    
+            if(i == 0)
+            {
+                linkNode.classList.add("ui-btn-active");
+                linkNode.classList.add("ui-state-persist");
+            }
+            
+            newNode.appendChild(linkNode);
+
+            pathsList.appendChild(newNode);
         }
-
-        newNode.appendChild(linkNode);
-
-        pathsList.appendChild(newNode);
     }
 }
 
