@@ -157,7 +157,7 @@ function CreatePathsListItems(paths, pathsList)
             linkNode.id = "id" + i;
             linkNode.href = root + "path/" + "build_" + currentPlatform + "/" + paths[i] + "/index.html";
             linkNode.innerHTML = paths[i]
-            linkNode.style = "box-shadow:0 0;"
+            linkNode.style = "box-shadow:0 0; color:#333; font-size:28px;"
     
             if(i == 0)
             {
