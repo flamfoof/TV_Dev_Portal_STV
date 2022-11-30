@@ -19,7 +19,7 @@ var currentPlatform = "react";
 var root = ""
 var deviceAgent = navigator.userAgent.toLowerCase();
 var paths;
-var scrollByLength = 80;
+var scrollByLength = 50;
 var topIndex = 1;
 var botIndex = 0;
 var offsetLocation = window.scrollY;
